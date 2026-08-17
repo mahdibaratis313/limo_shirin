@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>گزارش نماز - لیمو شیرین</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: rgba(255, 255, 255, 0.78);
+      --card-border: rgba(255, 255, 255, 0.35);
+      --text: #1e293b;
+      --muted: #64748b;
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --secondary: #e2e8f0;
+      --secondary-dark: #cbd5e1;
+      --shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      --radius: 22px;
+    }
+
+    body.dark {
+      --bg: linear-gradient(135deg, #0f172a, #111827);
+      --card: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --secondary: #1f2937;
+      --secondary-dark: #374151;
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s ease;
+    }
+
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bg-glow::before,
+    .bg-glow::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+    }
+
+    .bg-glow::before {
+      width: 280px;
+      height: 280px;
+      background: #34d399;
+      top: -60px;
+      right: -40px;
+    }
+
+    .bg-glow::after {
+      width: 260px;
+      height: 260px;
+      background: #60a5fa;
+      bottom: -60px;
+      left: -40px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #16a34a;
+      text-align: center;
+      width: 100%;
+    }
+
+    .theme-toggle {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--text);
+      border: none;
+      padding: 10px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.25s;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      outline: none;
+      transition: 0.2s;
+      font-size: 15px;
+      background: rgba(255,255,255,0.92);
+      color: #111827;
+    }
+
+    body.dark select, body.dark input[type="text"] {
+      background: rgba(15, 23, 42, 0.72);
+      color: #f8fafc;
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+    }
+
+    .section-title {
+      margin-top: 10px;
+      margin-bottom: 14px;
+      font-size: 20px;
+      color: var(--text);
+      border-right: 5px solid var(--primary);
+      padding-right: 10px;
+      font-weight: bold;
+    }
+
+    .prayer-box {
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    body.dark .prayer-box {
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    .prayer-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #0f766e;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .status-item {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    body.dark .status-item {
+      background: rgba(17, 24, 39, 0.55);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .secondary {
+      background: var(--secondary);
+      color: var(--text);
+    }
+
+    .secondary:hover {
+      background: var(--secondary-dark);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 240px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 16px;
+      resize: vertical;
+      font-size: 15px;
+      line-height: 1.9;
+      background: rgba(255,255,255,0.9);
+      color: #111827;
+      outline: none;
+    }
+
+    body.dark textarea {
+      background: rgba(15, 23, 42, 0.7);
+      color: #f8fafc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .note {
+      background: linear-gradient(135deg, rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.85));
+      color: #92400e;
+      padding: 12px;
+      border-radius: 14px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .grid,
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+
+      .container {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="topbar">
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 / ☀️ تم</button>
+        <h1>گزارش نماز گروه لیمو شیرین</h1>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label for="nameSelect">نام</label>
+          <select id="nameSelect" onchange="toggleCustomInput('nameSelect','customNameWrap')">
+            <option value="">انتخاب کنید</option>
+            <option>امیرمحمد</option>
+            <option>طاها</option>
+            <option>مهدی</option>
+            <option>معین</option>
+            <option>دانیال</option>
+            <option>محمدرضا</option>
+            <option>علی</option>
+            <option>محمدحسن</option>
+            <option>محمدابوذر</option>
+            <option>حسین</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="timeSelect">زمان</label>
+          <select id="timeSelect" onchange="toggleCustomInput('timeSelect','customTimeWrap')">
+            <option value="">انتخاب کنید</option>
+            <option>پریروز</option>
+            <option>دیروز</option>
+            <option>امروز</option>
+            <option value="سایر">سایر</option>
+          </select>
+        </div>
+
+        <div id="customNameWrap" class="hidden">
+          <label for="customName">نام دلخواه</label>
+          <input type="text" id="customName" placeholder="نام را بنویسید">
+        </div>
+
+        <div id="customTimeWrap" class="hidden">
+          <label for="customTime">زمان دلخواه</label>
+          <input type="text" id="customTime" placeholder="مثلاً سه روز پیش">
+        </div>
+      </div>
+
+      <div class="section-title">وضعیت نمازها</div>
+
+      <div class="prayer-box">
+        <h3>صبح</h3>
+        <div class="status-grid">
+          <div class="status-item">
+            <label for="sobh">نماز صبح</label>
+            <select id="sobh">
+              <option value="">انتخاب کنید</option>
+              <option value="✅">جماعت ✅</option>
+              <option value="☑️">فرادا ☑️</option>
+              <option value="❌">نخواندم ❌</option>
+              <option value="❌☑️">نخواندم ولی بعداً قضا کردم ❌☑️</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="prayer-box">
+        <h3>ظهر</h3>
+        <div class="status-grid">
+          <div class="status-item">
+            <label for="zohr">نماز ظهر</label>
+            <select id="zohr">
+              <option value="">انتخاب کنید</option>
+              <option value="✅">جماعت ✅</option>
+              <option value="☑️">فرادا ☑️</option>
+              <option value="❌">نخواندم ❌</option>
+              <option value="❌☑️">نخواندم ولی بعداً قضا کردم ❌☑️</option>
+            </select>
+          </div>
+          <div class="status-item">
+            <label for="asr">نماز عصر</label>
+            <select id="asr">
+              <option value="">انتخاب کنید</option>
+              <option value="✅">جماعت ✅</option>
+              <option value="☑️">فرادا ☑️</option>
+              <option value="❌">نخواندم ❌</option>
+              <option value="❌☑️">نخواندم ولی بعداً قضا کردم ❌☑️</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="prayer-box">
+        <h3>شب</h3>
+        <div class="status-grid">
+          <div class="status-item">
+            <label for="maghrib">نماز مغرب</label>
+            <select id="maghrib">
+              <option value="">انتخاب کنید</option>
+              <option value="✅">جماعت ✅</option>
+              <option value="☑️">فرادا ☑️</option>
+              <option value="❌">نخواندم ❌</option>
+              <option value="❌☑️">نخواندم ولی بعداً قضا کردم ❌☑️</option>
+            </select>
+          </div>
+          <div class="status-item">
+            <label for="esha">نماز عشاء</label>
+            <select id="esha">
+              <option value="">انتخاب کنید</option>
+              <option value="✅">جماعت ✅</option>
+              <option value="☑️">فرادا ☑️</option>
+              <option value="❌">نخواندم ❌</option>
+              <option value="❌☑️">نخواندم ولی بعداً قضا کردم ❌☑️</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        ✅ یعنی نماز جماعت خوانده شده<br>
+        ☑️ یعنی فرادا خوانده شده<br>
+        ❌ یعنی نخوانده شده<br>
+        ❌☑️ یعنی نخوانده شده ولی بعداً قضای آن خوانده شده
+      </div>
+
+      <div class="buttons">
+        <button class="primary" onclick="generateReport()">ساخت گزارش</button>
+        <button class="secondary" onclick="copyReport()">کپی گزارش</button>
+        <button class="secondary" onclick="newForm()">فرم جدید</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">خروجی گزارش</div>
+      <textarea id="output" readonly placeholder="گزارش شما اینجا ساخته می‌شود..."></textarea>
+      <div class="footer">طراحی شده برای گروه لیمو شیرین 🍋</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+    }
+
+    function toggleCustomInput(selectId, wrapId) {
+      const select = document.getElementById(selectId);
+      const wrap = document.getElementById(wrapId);
+      if (select.value === "سایر") {
+        wrap.classList.remove("hidden");
+      } else {
+        wrap.classList.add("hidden");
+      }
+    }
+
+    function getSelectedName() {
+      const nameSelect = document.getElementById("nameSelect").value;
+      const customName = document.getElementById("customName").value.trim();
+      if (nameSelect === "سایر") return customName;
+      return nameSelect;
+    }
+
+    function getSelectedTime() {
+      const timeSelect = document.getElementById("timeSelect").value;
+      const customTime = document.getElementById("customTime").value.trim();
+      if (timeSelect === "سایر") return customTime;
+      return timeSelect;
+    }
+
+    function generateReport() {
+      const name = getSelectedName();
+      const time = getSelectedTime();
+
+      const sobh = document.getElementById("sobh").value;
+      const zohr = document.getElementById("zohr").value;
+      const asr = document.getElementById("asr").value;
+      const maghrib = document.getElementById("maghrib").value;
+      const esha = document.getElementById("esha").value;
+
+      if (!name) {
+        alert("لطفاً نام را وارد یا انتخاب کنید.");
+        return;
+      }
+
+      if (!time) {
+        alert("لطفاً زمان را وارد یا انتخاب کنید.");
+        return;
+      }
+
+      let missing = [];
+      if (!sobh) missing.push("صبح");
+      if (!zohr && !asr) missing.push("ظهر");
+      if (!maghrib && !esha) missing.push("شب");
+
+      if (missing.length > 0) {
+        const msg = `شما وعده ${missing.join(" و ")} را ثبت نکرده‌اید. حواست هست؟`;
+        const proceed = confirm(msg);
+        if (!proceed) return;
+      }
+
+      const report =
+`سلام
+بسم الله الرحمن الرحیم
+#${name}   |   ${time}
+صبح ${sobh || "—"}
+ظهر ${(zohr || "—") + (asr || "—")}
+شب ${(maghrib || "—") + (esha || "—")}`;
+
+      document.getElementById("output").value = report;
+    }
+
+    function copyReport() {
+      const output = document.getElementById("output");
+      if (!output.value.trim()) {
+        alert("اول گزارش را بساز.");
+        return;
+      }
+
+      output.select();
+      output.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(output.value)
+        .then(() => alert("گزارش کپی شد ✅"))
+        .catch(() => alert("کپی انجام نشد، دستی کپی کن."));
+    }
+
+    function newForm() {
+      document.getElementById("nameSelect").value = "";
+      document.getElementById("timeSelect").value = "";
+      document.getElementById("customName").value = "";
+      document.getElementById("customTime").value = "";
+      document.getElementById("sobh").value = "";
+      document.getElementById("zohr").value = "";
+      document.getElementById("asr").value = "";
+      document.getElementById("maghrib").value = "";
+      document.getElementById("esha").value = "";
+      document.getElementById("output").value = "";
+      document.getElementById("customNameWrap").classList.add("hidden");
+      document.getElementById("customTimeWrap").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
