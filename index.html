@@ -529,16 +529,10 @@
       </div>
 
       <div class="actions">
-  <button class="btn btn-primary" onclick="generateReport()">ساخت گزارش</button>
-
-  <button class="btn btn-secondary" onclick="sendToEitaa()" id="sendEitaaButton">
-    ارسال به ایتا 📤
-  </button>
-
-  <button class="btn btn-secondary" onclick="copyReport()">کپی گزارش</button>
-  <button class="btn btn-secondary" onclick="newForm()">فرم جدید</button>
-</div>
-
+        <button class="btn btn-primary" onclick="generateReport()">ساخت گزارش</button>
+        <button class="btn btn-secondary" onclick="copyReport()">کپی گزارش</button>
+        <button class="btn btn-secondary" onclick="newForm()">فرم جدید</button>
+      </div>
     </section>
 
     <section class="card" id="outputCard">
@@ -697,94 +691,6 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
       showToast("فرم جدید آماده است 🍋");
     }
-async function sendToEitaa() {
-  const output = document.getElementById("output");
-  const sendButton = document.getElementById("sendEitaaButton");
-
-  // اگر گزارش هنوز ساخته نشده، اول آن را بساز
-  if (!output.value.trim()) {
-    generateReport();
-  }
-
-  // اگر گزارش ساخته نشد، ادامه نده
-  if (!output.value.trim()) return;
-
-  const confirmSend = confirm(
-    "این گزارش به ایتا ارسال شود؟\n\n" + output.value
-  );
-
-  if (!confirmSend) return;
-
-  const TOKEN = "bot34501:8059ceb1-39fb-455a-a3f8-f7f1def8b5e6";
-
-  /*
-    برای تست می‌توانی لینک دعوت را به‌صورت متن بگذاری.
-    ولی اگر API آن را قبول نکند، باید chat_id واقعی/عددی را پیدا کنی.
-  */
-  const CHAT_ID = "1079248149Cc20514565f";
-
-  const apiUrl = `https://eitaayar.ir/api/${TOKEN}/sendMessage`;
-
-  sendButton.disabled = true;
-  sendButton.textContent = "در حال ارسال...";
-
-  try {
-    const formData = new FormData();
-    formData.append("chat_id", CHAT_ID);
-    formData.append("text", output.value);
-    formData.append("title", "گزارش نماز لیمو شیرین");
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      body: formData
-    });
-
-    const rawResult = await response.text();
-
-    console.log("وضعیت HTTP:", response.status);
-    console.log("پاسخ کامل ایتا:", rawResult);
-
-    let result;
-
-    try {
-      result = JSON.parse(rawResult);
-    } catch {
-      result = null;
-    }
-
-    // پاسخ ناموفق HTTP
-    if (!response.ok) {
-      throw new Error(`خطای سرور ایتا (${response.status}): ${rawResult}`);
-    }
-
-    // پاسخ JSON ناموفق از API
-    if (result && result.ok === false) {
-      throw new Error(
-        result.description ||
-        result.message ||
-        JSON.stringify(result)
-      );
-    }
-
-    // اگر پاسخ قابل‌تشخیص نبود
-    if (!result && !rawResult.toLowerCase().includes("success")) {
-      throw new Error(rawResult || "پاسخ نامشخص از ایتا دریافت شد.");
-    }
-
-    showToast("گزارش با موفقیت به ایتا ارسال شد ✅");
-
-  } catch (error) {
-    console.error("خطای کامل ارسال:", error);
-
-    showToast(
-      "ارسال ناموفق بود: " + error.message.slice(0, 120)
-    );
-  } finally {
-    sendButton.disabled = false;
-    sendButton.textContent = "ارسال به ایتا 📤";
-  }
-}
-
 
     function toggleTheme() {
       document.body.classList.toggle("dark");
