@@ -4,58 +4,160 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>گزارش نماز | لیمو شیرین</title>
-
   <style>
     :root {
-      --bg: #f5f8f6;
-      --surface: #ffffff;
-      --surface-soft: #f0f8f3;
-      --text: #17251d;
-      --muted: #64748b;
-      --border: #dfe9e3;
-      --primary: #16965d;
-      --primary-dark: #087447;
-      --primary-light: #dcfce7;
-      --shadow: 0 12px 35px rgba(20, 63, 40, 0.10);
-      --danger: #dc2626;
-      --warning: #d97706;
+      --bg: #f8faf5;
+      --bg-accent: #f2f7ec;
+      --card-bg: #ffffff;
+      --card-border: #e6edd8;
+      --card-shadow: 0 14px 34px rgba(60, 95, 25, 0.08);
+      --text: #1f2d16;
+      --text-muted: #5e6f54;
+      --brand: #2f6f1e;
+      --brand-soft: #eef6e8;
+      --accent: #d4e73f;
+      --accent-hover: #c4d72e;
+      --lemon-gold: #c99700;
+      --lemon-bg: #fffbe6;
+      --border: #dbe7cc;
+      --success: #2e7d32;
+      --success-bg: #e8f5e9;
+      --info: #0277bd;
+      --info-bg: #e1f5fe;
+      --danger: #c62828;
+      --danger-bg: #ffebee;
+      --warning: #ef6c00;
+      --warning-bg: #fff3e0;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --btn-active-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      --badge-bg: #edf5e5;
     }
 
-    body.dark {
-      --bg: #0d1712;
-      --surface: #14241b;
-      --surface-soft: #1b3125;
-      --text: #eefcf4;
-      --muted: #b5c8bb;
-      --border: #2c4939;
-      --primary: #36c981;
-      --primary-dark: #1fab68;
-      --primary-light: #153c28;
-      --shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
-      --danger: #fb7185;
-      --warning: #fbbf24;
+    /* 🌙 تم شب / تیره */
+    body[data-theme="dark"] {
+      --bg: #0f1710;
+      --bg-accent: #152217;
+      --card-bg: #162419;
+      --card-border: #233827;
+      --card-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+      --text: #eaf3e7;
+      --text-muted: #95ab91;
+      --brand: #79c264;
+      --brand-soft: #1c3020;
+      --accent: #d8ec46;
+      --accent-hover: #c6d934;
+      --lemon-gold: #ffd642;
+      --lemon-bg: #2b2713;
+      --border: #27402c;
+      --success: #66bb6a;
+      --success-bg: #153319;
+      --info: #4fc3f7;
+      --info-bg: #0d2938;
+      --danger: #ef5350;
+      --danger-bg: #3c1618;
+      --warning: #ffa726;
+      --warning-bg: #3e280f;
+      --btn-active-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      --badge-bg: #1f3323;
+    }
+
+    /* 🌊 تم اقیانوسی */
+    body[data-theme="ocean"] {
+      --bg: #f0f7fc;
+      --bg-accent: #e1f0fa;
+      --card-bg: #ffffff;
+      --card-border: #cde4f5;
+      --card-shadow: 0 14px 34px rgba(18, 80, 130, 0.09);
+      --text: #102a43;
+      --text-muted: #486581;
+      --brand: #0b69a3;
+      --brand-soft: #e6f4fa;
+      --accent: #38bec9;
+      --accent-hover: #21a2ad;
+      --lemon-gold: #008da5;
+      --lemon-bg: #e6fbff;
+      --border: #bee3f8;
+      --badge-bg: #e2f2fc;
+    }
+
+    /* 🌸 تم بهاری */
+    body[data-theme="rose"] {
+      --bg: #fff5f7;
+      --bg-accent: #fde8ed;
+      --card-bg: #ffffff;
+      --card-border: #f9d2dc;
+      --card-shadow: 0 14px 34px rgba(168, 48, 84, 0.08);
+      --text: #3c1b26;
+      --text-muted: #8c5d6e;
+      --brand: #be2e5d;
+      --brand-soft: #fdebf1;
+      --accent: #ff85a1;
+      --accent-hover: #f7688a;
+      --lemon-gold: #cf3d6d;
+      --lemon-bg: #fff0f5;
+      --border: #f8c5d4;
+      --badge-bg: #fce4ec;
+    }
+
+    /* 🌿 تم جنگلی */
+    body[data-theme="forest"] {
+      --bg: #f2f7f4;
+      --bg-accent: #e3ede6;
+      --card-bg: #ffffff;
+      --card-border: #c8dfd1;
+      --card-shadow: 0 14px 34px rgba(20, 60, 35, 0.09);
+      --text: #132d20;
+      --text-muted: #4d705f;
+      --brand: #185a37;
+      --brand-soft: #e2f0e8;
+      --accent: #48bb78;
+      --accent-hover: #38a169;
+      --lemon-gold: #2f855a;
+      --lemon-bg: #ebfbee;
+      --border: #bfe0ce;
+      --badge-bg: #daf1e4;
+    }
+
+    /* 🌅 تم غروب */
+    body[data-theme="sunset"] {
+      --bg: #fff7f2;
+      --bg-accent: #ffede3;
+      --card-bg: #ffffff;
+      --card-border: #fed7c3;
+      --card-shadow: 0 14px 34px rgba(140, 50, 20, 0.09);
+      --text: #3d1c10;
+      --text-muted: #8d5d4d;
+      --brand: #c0401b;
+      --brand-soft: #feeee6;
+      --accent: #f6ad55;
+      --accent-hover: #ed8936;
+      --lemon-gold: #dd6b20;
+      --lemon-bg: #fff4ed;
+      --border: #fbd3bc;
+      --badge-bg: #fde8db;
     }
 
     * {
       box-sizing: border-box;
-      font-family: Tahoma, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
+      background: radial-gradient(circle at top right, var(--bg-accent), var(--bg) 60%);
       color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.16), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(250, 204, 21, 0.12), transparent 28%),
-        var(--bg);
-      transition: background 0.25s, color 0.25s;
+      min-height: 100vh;
+      padding: 24px 14px 44px;
+      transition: var(--transition);
+      line-height: 1.6;
     }
 
     .container {
-      width: min(920px, calc(100% - 28px));
+      max-width: 920px;
       margin: 0 auto;
-      padding: 24px 0 36px;
     }
 
     .hero {
@@ -63,7 +165,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -72,653 +175,812 @@
       gap: 12px;
     }
 
-    .lemon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      font-size: 29px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #fef08a, #facc15);
-      box-shadow: 0 8px 20px rgba(202, 138, 4, 0.2);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(21px, 4vw, 29px);
-      color: var(--text);
-    }
-
-    .subtitle {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .theme-btn {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--surface);
-      border-radius: 14px;
-      padding: 10px 13px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .card {
-      background: color-mix(in srgb, var(--surface) 92%, transparent);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 22px;
-      margin-bottom: 16px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    select,
-    input,
-    textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: var(--surface);
-      color: var(--text);
-      font: inherit;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    select,
-    input {
-      padding: 13px;
-    }
-
-    select:focus,
-    input:focus,
-    textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(22, 150, 93, 0.12);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .progress-box {
-      background: var(--surface-soft);
-      border-radius: 16px;
-      padding: 13px 15px;
-      margin: 20px 0;
-    }
-
-    .progress-head {
+    .lemon-icon {
+      font-size: 2.2rem;
+      background: var(--lemon-bg);
+      border: 2px solid var(--border);
+      width: 58px;
+      height: 58px;
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 9px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      user-select: none;
     }
 
-    .progress-track {
-      height: 8px;
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--border);
+    .hero-text h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--brand);
     }
 
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      transition: width 0.25s ease;
-      background: linear-gradient(90deg, #22c55e, #16a34a);
+    .hero-text p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
     }
 
-    .section-title {
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin: 23px 0 12px;
-      font-size: 18px;
+      flex-wrap: wrap;
+    }
+
+    .theme-picker-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .theme-picker-wrapper label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .theme-select {
+      background: transparent;
+      border: none;
+      color: var(--brand);
       font-weight: bold;
+      font-size: 0.88rem;
+      outline: none;
+      cursor: pointer;
     }
 
-    .section-title::before {
-      content: "";
-      width: 5px;
-      height: 23px;
-      border-radius: 10px;
-      background: var(--primary);
+    .theme-select option {
+      background: var(--card-bg);
+      color: var(--text);
     }
 
-    .period {
-      background: var(--surface-soft);
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .card-title {
+      font-size: 1.12: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .theme-picker-wrapper label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .theme-select {
+      background: transparent;
+      border: none;
+      color: var(--brand);
+      font-weight: bold;
+      font-size: 0.88rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .theme-select option {
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .card-title {
+      font-size: 1.12}
+
+    select:focus, input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--brand-soft);
+      background: var(--card-bg);
+    }
+
+    .custom-field {
+      margin-top: 8px;
+      display: none;
+    }
+
+    .progress-box {
+      margin: 18px 0 24px;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 13px;
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .period-title {
-      margin: 0 0 13px;
-      color: var(--primary-dark);
-      font-size: 16px;
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
-    body.dark .period-title {
-      color: var(--primary);
+    .progress-bar-bg {
+      background: var(--border);
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
     }
 
-    .prayers-grid {
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .prayers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .prayer-group {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      background: var(--bg);
+    }
+
+    .prayer-group-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .prayer-item {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 13px;
+      grid-template-columns: 85px 1fr;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .prayer {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 13px;
+    .prayer-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .prayer-name {
-      margin: 0 0 10px;
-      font-weight: bold;
-      font-size: 14px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: var(--text);
     }
 
     .status-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
     }
 
     .status-btn {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--surface-soft);
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 9px 5px;
-      font: inherit;
-      font-size: 12px;
+      padding: 8px 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.18s;
+      color: var(--text-muted);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      user-select: none;
+      text-align: center;
     }
 
     .status-btn:hover {
-      transform: translateY(-1px);
-      border-color: var(--primary);
+      border-color: var(--brand);
+      color: var(--brand);
+      background: var(--brand-soft);
     }
 
-    .status-btn.active {
-      border-color: var(--primary);
-      background: var(--primary);
+    /* وضعیت‌های فعال */
+    .status-btn[data-val="jamaat"].active {
+      background: var(--success);
+      border-color: var(--success);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(22, 150, 93, 0.25);
+      box-shadow: var(--btn-active-shadow);
     }
 
-    .legend {
-      margin-top: 18px;
-      padding: 13px 15px;
-      border-radius: 14px;
-      background: #fff9db;
-      color: #805d05;
-      font-size: 13px;
-      line-height: 2;
+    .status-btn[data-val="farada"].active {
+      background: var(--info);
+      border-color: var(--info);
+      color: #fff;
+      box-shadow: var(--btn-active-shadow);
     }
 
-    body.dark .legend {
-      background: #382d0d;
-      color: #fde68a;
+    .status-btn[data-val="none"].active {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+      box-shadow: var(--btn-active-shadow);
     }
 
-    .actions {
+    .status-btn[data-val="ghaza"].active {
+      background: var(--warning);
+      border-color: var(--warning);
+      color: #fff;
+      box-shadow: var(--btn-active-shadow);
+    }
+
+    .legend-box {
+      margin-top: 14px;
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--border);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr;
+      gap: 10px;
       margin-top: 20px;
     }
 
     .btn {
       border: none;
-      border-radius: 13px;
-      padding: 13px 17px;
-      font: inherit;
-      font-weight: bold;
+      border-radius: var(--radius-sm);
+      padding: 13px 18px;
+      font-size: 0.95rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+      user-select: none;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
+    .btn:active {
+      transform: scale(0.98);
     }
 
     .btn-primary {
+      background: var(--brand);
       color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      box-shadow: 0 8px 18px rgba(22, 150, 93, 0.22);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     }
 
-    .btn-secondary {
+    .btn-primary:hover {
+      filter: brightness(1.1);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #1f2d16;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg);
       color: var(--text);
-      background: var(--surface-soft);
-      border: 1px solid var(--border);
     }
 
-    textarea {
-      min-height: 210px;
-      padding: 16px;
+    .output-area {
+      width: 100%;
+      height: 180px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text);
       resize: vertical;
-      line-height: 2;
-      direction: rtl;
+      outline: none;
+      margin-top: 14px;
+      white-space: pre-wrap;
     }
 
     .footer {
       text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      margin: 18px 0 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 10px;
     }
 
     .toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 24px;
       left: 50%;
-      transform: translate(-50%, 120px);
-      z-index: 10;
-      width: min(350px, calc(100% - 34px));
-      text-align: center;
-      padding: 13px 16px;
-      border-radius: 13px;
-      background: #17251d;
+      transform: translateX(-50%) translateY(100px);
+      background: #1f2d16;
       color: #fff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
-      transition: transform 0.3s ease;
-      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    body[data-theme="dark"] .toast {
+      background: #eaf3e7;
+      color: #0f1710;
     }
 
     .toast.show {
-      transform: translate(-50%, 0);
+      transform: translateX(-50%) translateY(0);
     }
 
-    @media (max-width: 650px) {
-      .container {
-        width: min(100% - 20px, 920px);
-        padding-top: 15px;
+    @media (max-width: 640px) {
+      .prayer-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
       }
-
-      .card {
-        padding: 16px;
-        border-radius: 20px;
-      }
-
-      .form-grid,
-      .prayers-grid {
+      .actions-grid {
         grid-template-columns: 1fr;
       }
-
-      .hero {
-        align-items: flex-start;
+      .status-buttons {
+        gap: 4px;
       }
-
-      .theme-btn {
-        padding: 9px 10px;
-      }
-
-      .actions .btn {
-        width: 100%;
+      .status-btn {
+        font-size: 0.75rem;
+        padding: 7px 2px;
       }
     }
   </style>
 </head>
-
 <body>
-  <main class="container">
-    <header class="hero">
-      <div class="brand">
-        <div class="lemon">🍋</div>
-        <div>
-          <h1>گزارش نماز لیمو شیرین</h1>
-          <p class="subtitle">ثبت سریع و مرتب گزارش روزانه</p>
+
+<div class="container">
+  <!-- هدر و انتخاب تم -->
+  <header class="hero">
+    <div class="brand">
+      <div class="lemon-icon">🍋</div>
+      <div class="hero-text">
+        <h1>گزارش نماز | لیمو شیرین</h1>
+        <p>ثبت و اشتراک‌گذاری سریع وضعیت نمازهای روزانه</p>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <div class="theme-picker-wrapper">
+        <label for="themeSelect">🎨 تم:</label>
+        <select id="themeSelect" class="theme-select" onchange="changeTheme(this.value)">
+          <option value="lemon">🍋 لیمویی</option>
+          <option value="dark">🌙 حالت شب</option>
+          <option value="ocean">🌊 اقیانوسی</option>
+          <option value="forest">🌿 جنگلی</option>
+          <option value="rose">🌸 بهاری</option>
+          <option value="sunset">🌅 غروب</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- کارت اصلی فرم -->
+  <main class="card">
+    <div class="card-header">
+      <span class="card-title">📝 مشخصات و تاریخ</span>
+      <span class="badge">گروه لیمو شیرین</span>
+    </div>
+
+    <div class="form-grid">
+      <!-- فیلد نام -->
+      <div class="field">
+        <label for="nameSelect">👤 نام شما:</label>
+        <select id="nameSelect" onchange="onNameChange()">
+          <option value="">-- انتخاب نام --</option>
+          <option value="امیرمحمد">امیرمحمد</option>
+          <option value="طاها">طاها</option>
+          <option value="مهدی">مهدی</option>
+          <option value="معین">معین</option>
+          <option value="دانیال">دانیال</option>
+          <option value="محمدرضا">محمدرضا</option>
+          <option value="علی">علی</option>
+          <option value="محمدحسن">محمدحسن</option>
+          <option value="محمدابوذر">محمدابوذر</option>
+          <option value="حسین">حسین</option>
+          <option value="محمد_علیجانی">محمد علیجانی</option>
+          <option value="custom">سایر (تایپ دستی)...</option>
+        </select>
+        <div id="customNameWrap" class="custom-field">
+          <input type="text" id="customName" placeholder="نام خود را بنویسید..." oninput="saveCustomName()" />
         </div>
       </div>
 
-      <button class="theme-btn" onclick="toggleTheme()" id="themeButton">
-        🌙 تم تیره
-      </button>
-    </header>
-
-    <section class="card">
-      <div class="form-grid">
-        <div>
-          <label for="nameSelect">نام</label>
-          <select id="nameSelect" onchange="toggleCustom('name')">
-            <option value="">انتخاب کنید</option>
-            <option>امیرمحمد</option>
-            <option>طاها</option>
-            <option>مهدی</option>
-            <option>معین</option>
-            <option>دانیال</option>
-            <option>محمدرضا</option>
-            <option>علی</option>
-            <option>محمدحسن</option>
-            <option>محمدابوذر</option>
-            <option>حسین</option>
-            <option>محمد_علیجانی</option>
-            <option value="سایر">سایر</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="timeSelect">زمان گزارش</label>
-          <select id="timeSelect" onchange="toggleCustom('time')">
-            <option value="">انتخاب کنید</option>
-            <option>پریروز</option>
-            <option>دیروز</option>
-            <option>امروز</option>
-            <option value="سایر">سایر</option>
-          </select>
-        </div>
-
-        <div id="customNameBox" class="hidden">
-          <label for="customName">نام دلخواه</label>
-          <input id="customName" type="text" placeholder="نام را وارد کنید" />
-        </div>
-
-        <div id="customTimeBox" class="hidden">
-          <label for="customTime">زمان دلخواه</label>
-          <input id="customTime" type="text" placeholder="مثلاً سه روز پیش" />
+      <!-- فیلد زمان -->
+      <div class="field">
+        <label for="timeSelect">📅 تاریخ گزارش:</label>
+        <select id="timeSelect" onchange="toggleCustom('timeSelect', 'customTimeWrap')">
+          <option value="امروز" selected>امروز</option>
+          <option value="دیروز">دیروز</option>
+          <option value="پریروز">پریروز</option>
+          <option value="custom">تاریخ یا روز دلخواه...</option>
+        </select>
+        <div id="customTimeWrap" class="custom-field">
+          <input type="text" id="customTime" placeholder="مثال: شنبه ۱۴ فروردین..." />
         </div>
       </div>
+    </div>
 
-      <div class="progress-box">
-        <div class="progress-head">
-          <span>میزان تکمیل گزارش</span>
-          <span id="progressText">۰ از ۵ نماز</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
+    <!-- نوار پیشرفت -->
+    <div class="progress-box">
+      <div class="progress-top">
+        <span>میزان تکمیل فرم</span>
+        <span id="progressText">۰ از ۵ نماز</span>
       </div>
+      <div class="progress-bar-bg">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </div>
 
-      <div class="section-title">وضعیت نمازها</div>
-
-      <div class="period">
-        <h2 class="period-title">صبح</h2>
-        <div class="prayers-grid">
-          <div class="prayer">
-            <p class="prayer-name">نماز صبح</p>
-            <div class="status-buttons" data-prayer="sobh">
-              <button class="status-btn" data-value="✅">✅ جماعت</button>
-              <button class="status-btn" data-value="☑️">☑️ فرادا</button>
-              <button class="status-btn" data-value="❌">❌ نخواندم</button>
-              <button class="status-btn" data-value="❌☑️">❌☑️ قضا کردم</button>
-            </div>
+    <!-- بخش انتخاب نمازها -->
+    <div class="prayers-list">
+      <!-- صبح -->
+      <div class="prayer-group">
+        <div class="prayer-group-title">🌅 وعده صبح</div>
+        <div class="prayer-item">
+          <div class="prayer-name">صبح</div>
+          <div class="status-buttons" data-prayer="sobh">
+            <button type="button" class="status-btn" data-val="jamaat" onclick="setStatus('sobh', 'jamaat')">✅ جماعت</button>
+            <button type="button" class="status-btn" data-val="farada" onclick="setStatus('sobh', 'farada')">☑️ فرادا</button>
+            <button type="button" class="status-btn" data-val="none" onclick="setStatus('sobh', 'none')">❌ نخواندم</button>
+            <button type="button" class="status-btn" data-val="ghaza" onclick="setStatus('sobh', 'ghaza')">❌☑️ قضا</button>
           </div>
         </div>
       </div>
 
-      <div class="period">
-        <h2 class="period-title">ظهر</h2>
-        <div class="prayers-grid">
-          <div class="prayer">
-            <p class="prayer-name">نماز ظهر</p>
-            <div class="status-buttons" data-prayer="zohr">
-              <button class="status-btn" data-value="✅">✅ جماعت</button>
-              <button class="status-btn" data-value="☑️">☑️ فرادا</button>
-              <button class="status-btn" data-value="❌">❌ نخواندم</button>
-              <button class="status-btn" data-value="❌☑️">❌☑️ قضا کردم</button>
-            </div>
+      <!-- ظهر و عصر -->
+      <div class="prayer-group">
+        <div class="prayer-group-title">☀️ وعده ظهر و عصر</div>
+        <div class="prayer-item">
+          <div class="prayer-name">ظهر</div>
+          <div class="status-buttons" data-prayer="zohr">
+            <button type="button" class="status-btn" data-val="jamaat" onclick="setStatus('zohr', 'jamaat')">✅ جماعت</button>
+            <button type="button" class="status-btn" data-val="farada" onclick="setStatus('zohr', 'farada')">☑️ فرادا</button>
+            <button type="button" class="status-btn" data-val="none" onclick="setStatus('zohr', 'none')">❌ نخواندم</button>
+            <button type="button" class="status-btn" data-val="ghaza" onclick="setStatus('zohr', 'ghaza')">❌☑️ قضا</button>
           </div>
-
-          <div class="prayer">
-            <p class="prayer-name">نماز عصر</p>
-            <div class="status-buttons" data-prayer="asr">
-              <button class="status-btn" data-value="✅">✅ جماعت</button>
-              <button class="status-btn" data-value="☑️">☑️ فرادا</button>
-              <button class="status-btn" data-value="❌">❌ نخواندم</button>
-              <button class="status-btn" data-value="❌☑️">❌☑️ قضا کردم</button>
-            </div>
+        </div>
+        <div class="prayer-item">
+          <div class="prayer-name">عصر</div>
+          <div class="status-buttons" data-prayer="asr">
+            <button type="button" class="status-btn" data-val="jamaat" onclick="setStatus('asr', 'jamaat')">✅ جماعت</button>
+            <button type="button" class="status-btn" data-val="farada" onclick="setStatus('asr', 'farada')">☑️ فرادا</button>
+            <button type="button" class="status-btn" data-val="none" onclick="setStatus('asr', 'none')">❌ نخواندم</button>
+            <button type="button" class="status-btn" data-val="ghaza" onclick="setStatus('asr', 'ghaza')">❌☑️ قضا</button>
           </div>
         </div>
       </div>
 
-      <div class="period">
-        <h2 class="period-title">شب</h2>
-        <div class="prayers-grid">
-          <div class="prayer">
-            <p class="prayer-name">نماز مغرب</p>
-            <div class="status-buttons" data-prayer="maghrib">
-              <button class="status-btn" data-value="✅">✅ جماعت</button>
-              <button class="status-btn" data-value="☑️">☑️ فرادا</button>
-              <button class="status-btn" data-value="❌">❌ نخواندم</button>
-              <button class="status-btn" data-value="❌☑️">❌☑️ قضا کردم</button>
-            </div>
+      <!-- مغرب و عشاء -->
+      <div class="prayer-group">
+        <div class="prayer-group-title">🌙 وعده مغرب و عشاء</div>
+        <div class="prayer-item">
+          <div class="prayer-name">مغرب</div>
+          <div class="status-buttons" data-prayer="maghreb">
+            <button type="button" class="status-btn" data-val="jamaat" onclick="setStatus('maghreb', 'jamaat')">✅ جماعت</button>
+            <button type="button" class="status-btn" data-val="farada" onclick="setStatus('maghreb', 'farada')">☑️ فرادا</button>
+            <button type="button" class="status-btn" data-val="none" onclick="setStatus('maghreb', 'none')">❌ نخواندم</button>
+            <button type="button" class="status-btn" data-val="ghaza" onclick="setStatus('maghreb', 'ghaza')">❌☑️ قضا</button>
           </div>
-
-          <div class="prayer">
-            <p class="prayer-name">نماز عشاء</p>
-            <div class="status-buttons" data-prayer="esha">
-              <button class="status-btn" data-value="✅">✅ جماعت</button>
-              <button class="status-btn" data-value="☑️">☑️ فرادا</button>
-              <button class="status-btn" data-value="❌">❌ نخواندم</button>
-              <button class="status-btn" data-value="❌☑️">❌☑️ قضا کردم</button>
-            </div>
+        </div>
+        <div class="prayer-item">
+          <div class="prayer-name">عشاء</div>
+          <div class="status-buttons" data-prayer="esha">
+            <button type="button" class="status-btn" data-val="jamaat" onclick="setStatus('esha', 'jamaat')">✅ جماعت</button>
+            <button type="button" class="status-btn" data-val="farada" onclick="setStatus('esha', 'farada')">☑️ فرادا</button>
+            <button type="button" class="status-btn" data-val="none" onclick="setStatus('esha', 'none')">❌ نخواندم</button>
+            <button type="button" class="status-btn" data-val="ghaza" onclick="setStatus('esha', 'ghaza')">❌☑️ قضا</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="legend">
-        ✅ جماعت &nbsp; | &nbsp; ☑️ فرادا &nbsp; | &nbsp;
-        ❌ نخوانده شده &nbsp; | &nbsp; ❌☑️ بعداً قضا شده
-      </div>
+    <!-- راهنمای علائم -->
+    <div class="legend-box">
+      <div class="legend-item"><span>✅</span> جماعت</div>
+      <div class="legend-item"><span>☑️</span> فرادا</div>
+      <div class="legend-item"><span>❌</span> نخواندم</div>
+      <div class="legend-item"><span>❌☑️</span> قضا کردم</div>
+    </div>
 
-      <div class="actions">
-        <button class="btn btn-primary" onclick="generateReport()">ساخت گزارش</button>
-        <button class="btn btn-secondary" onclick="copyReport()">کپی گزارش</button>
-        <button class="btn btn-secondary" onclick="newForm()">فرم جدید</button>
-      </div>
-    </section>
+    <!-- دکمه‌های عملیات -->
+    <div class="actions-grid">
+      <button type="button" class="btn btn-primary" onclick="generateReport()">📋 ساخت متن گزارش</button>
+      <button type="button" class="btn btn-accent" onclick="copyReport()">📑 کپی گزارش</button>
+      <button type="button" class="btn btn-outline" onclick="resetForm()">🔄 فرم جدید</button>
+    </div>
 
-    <section class="card" id="outputCard">
-      <div class="section-title">خروجی گزارش</div>
-      <textarea id="output" readonly placeholder="بعد از زدن دکمه «ساخت گزارش»، متن اینجا نمایش داده می‌شود..."></textarea>
-      <div class="footer">طراحی شده برای گروه لیمو شیرین 🍋</div>
-    </section>
+    <!-- خروجی گزارش -->
+    <textarea id="output" class="output-area" readonly placeholder="متن گزارش پس از کلیک روی «ساخت متن گزارش» در اینجا قرار می‌گیرد..."></textarea>
   </main>
 
-  <div class="toast" id="toast"></div>
+  <footer class="footer">
+    طراحی شده برای گروه لیمو شیرین 🍋
+  </footer>
+</div>
 
-  <script>
-    const prayerStatus = {
-      sobh: "",
-      zohr: "",
-      asr: "",
-      maghrib: "",
-      esha: ""
-    };
+<div id="toast" class="toast">پیام سیستم</div>
 
-    document.querySelectorAll(".status-btn").forEach(button => {
-      button.addEventListener("click", function () {
-        const group = this.parentElement;
-        const prayer = group.dataset.prayer;
+<script>
+  // متغیر وضعیت نمازها
+  const prayerStatus = {
+    sobh: null,
+    zohr: null,
+    asr: null,
+    maghreb: null,
+    esha: null
+  };
 
-        group.querySelectorAll(".status-btn").forEach(btn => {
-          btn.classList.remove("active");
-        });
+  const statusIcons = {
+    jamaat: '✅',
+    farada: '☑️',
+    none: '❌',
+    ghaza: '❌☑️'
+  };
 
-        this.classList.add("active");
-        prayerStatus[prayer] = this.dataset.value;
-        updateProgress();
-      });
+  const toPersianDigits = (num) => {
+    const pDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return num.toString().replace(/\d/g, (d) => pDigits[d]);
+  };
+
+  // تنظیم وضعیت یک نماز
+  function setStatus(prayer, val) {
+    prayerStatus[prayer] = val;
+    const container = document.querySelector(`.status-buttons[data-prayer="${prayer}"]`);
+    if (!container) return;
+
+    container.querySelectorAll('.status-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-val') === val);
     });
 
-    function toggleCustom(type) {
-      const select = document.getElementById(type + "Select");
-      const box = document.getElementById(
-        type === "name" ? "customNameBox" : "customTimeBox"
-      );
+    updateProgress();
+  }
 
-      box.classList.toggle("hidden", select.value !== "سایر");
+  // به‌روزرسانی نوار پیشرفت
+  function updateProgress() {
+    const filledCount = Object.values(prayerStatus).filter(v => v !== null).length;
+    const percent = (filledCount / 5) * 100;
+    
+    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progressText').textContent = `${toPersianDigits(filledCount)} از ۵ نماز`;
+  }
+
+  // مدیریت فیلدهای دلخواه
+  function toggleCustom(selectId, wrapId) {
+    const sel = document.getElementById(selectId);
+    const wrap = document.getElementById(wrapId);
+    wrap.style.display = (sel.value === 'custom') ? 'block' : 'none';
+  }
+
+  // تغییر نام و ذخیره در LocalStorage
+  function onNameChange() {
+    toggleCustom('nameSelect', 'customNameWrap');
+    const selVal = document.getElementById('nameSelect').value;
+    if (selVal && selVal !== 'custom') {
+      localStorage.setItem('limo_saved_name', selVal);
+      localStorage.removeItem('limo_custom_name');
+    } else if (selVal === 'custom') {
+      localStorage.setItem('limo_saved_name', 'custom');
+    }
+  }
+
+  function saveCustomName() {
+    const customVal = document.getElementById('customName').value;
+    localStorage.setItem('limo_custom_name', customVal);
+  }
+
+  // خواندن نام انتخاب شده
+  function getName() {
+    const sel = document.getElementById('nameSelect').value;
+    if (!sel) return '';
+    if (sel === 'custom') {
+      return document.getElementById('customName').value.trim();
+    }
+    return sel;
+  }
+
+  // خواندن زمان
+  function getTime() {
+    const sel = document.getElementById('timeSelect').value;
+    if (sel === 'custom') {
+      return document.getElementById('customTime').value.trim() || 'امروز';
+    }
+    return sel;
+  }
+
+  // تولید گزارش
+  function generateReport() {
+    const name = getName();
+    const time = getTime();
+
+    if (!name) {
+      showToast('⚠️ لطفاً ابتدا نام خود را انتخاب یا وارد کنید.');
+      document.getElementById('nameSelect').focus();
+      return;
     }
 
-    function updateProgress() {
-      const count = Object.values(prayerStatus).filter(value => value !== "").length;
-      document.getElementById("progressText").textContent =
-        `${toPersianNumber(count)} از ۵ نماز`;
-      document.getElementById("progressFill").style.width = `${count * 20}%`;
+    // بررسی آیا نمازی ثبت نشده
+    const unselected = Object.entries(prayerStatus).filter(([_, val]) => val === null);
+    if (unselected.length > 0) {
+      const confirmIncomplete = confirm(`هنوز وضعیت ${toPersianDigits(unselected.length)} نماز انتخاب نشده است. مایلید ادامه دهید؟`);
+      if (!confirmIncomplete) return;
     }
 
-    function toPersianNumber(number) {
-      return String(number).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
-    }
+    const fmt = (p) => prayerStatus[p] ? statusIcons[prayerStatus[p]] : '❓';
 
-    function getName() {
-      const selected = document.getElementById("nameSelect").value;
-      return selected === "سایر"
-        ? document.getElementById("customName").value.trim()
-        : selected;
-    }
-
-    function getTime() {
-      const selected = document.getElementById("timeSelect").value;
-      return selected === "سایر"
-        ? document.getElementById("customTime").value.trim()
-        : selected;
-    }
-
-    function generateReport() {
-      const name = getName();
-      const time = getTime();
-
-      if (!name) {
-        showToast("لطفاً نام را انتخاب یا وارد کن.");
-        return;
-      }
-
-      if (!time) {
-        showToast("لطفاً زمان گزارش را انتخاب یا وارد کن.");
-        return;
-      }
-
-      const incomplete = [];
-
-      if (!prayerStatus.sobh) incomplete.push("صبح");
-      if (!prayerStatus.zohr || !prayerStatus.asr) incomplete.push("ظهر");
-      if (!prayerStatus.maghrib || !prayerStatus.esha) incomplete.push("شب");
-
-      if (incomplete.length > 0) {
-        const confirmText =
-          `وعده ${incomplete.join(" و ")} کامل ثبت نشده. حواست هست؟`;
-
-        if (!confirm(confirmText)) return;
-      }
-
-      const report = `سلام
+    const report = 
+`سلام
 بسم الله الرحمن الرحیم
-#${name}   |   ${time}
-صبح ${prayerStatus.sobh || "—"}
-ظهر ${(prayerStatus.zohr || "—") + (prayerStatus.asr || "—")}
-شب ${(prayerStatus.maghrib || "—") + (prayerStatus.esha || "—")}`;
+#${name} | ${time}
 
-      document.getElementById("output").value = report;
-      document.getElementById("outputCard").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
+صبح : ${fmt('sobh')}
 
-      showToast("گزارش آماده شد ✅");
+ظهر : ${fmt('zohr')}
+عصر : ${fmt('asr')}
+
+مغرب : ${fmt('maghreb')}
+عشاء : ${fmt('esha')}`;
+
+    const outputEl = document.getElementById('output');
+    outputEl.value = report;
+    showToast('✨ متن گزارش با موفقیت آماده شد');
+    outputEl.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // کپی گزارش در کلیپ‌بورد
+  function copyReport() {
+    const outputEl = document.getElementById('output');
+    const text = outputEl.value.trim();
+
+    if (!text) {
+      showToast('⚠️ ابتدا روی «ساخت متن گزارش» بزنید.');
+      return;
     }
 
-    function copyReport() {
-      const output = document.getElementById("output");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✅ متن گزارش در کلیپ‌بورد کپی شد!');
+      }).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
 
-      if (!output.value.trim()) {
-        showToast("اول گزارش را بساز.");
-        return;
+  function fallbackCopy(text) {
+    const outputEl = document.getElementById('output');
+    outputEl.select();
+    document.execCommand('copy');
+    showToast('✅ متن گزارش کپی شد!');
+  }
+
+  // ریست فرم
+  function resetForm() {
+    if (!confirm('آیا می‌خواهید فرم ریست شود و از نو پر کنید؟')) return;
+
+    Object.keys(prayerStatus).forEach(k => prayerStatus[k] = null);
+    document.querySelectorAll('.status-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('output').value = '';
+    updateProgress();
+    showToast('فرم بازنشانی شد.');
+  }
+
+  // تغییر تم و ذخیره در LocalStorage
+  function changeTheme(themeName) {
+    if (themeName === 'lemon') {
+      document.body.removeAttribute('data-theme');
+    } else {
+      document.body.setAttribute('data-theme', themeName);
+    }
+    localStorage.setItem('limo_theme', themeName);
+    document.getElementById('themeSelect').value = themeName;
+  }
+
+  // نمایش پیام توست
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  // بارگذاری اولیه تنظیمات کاربر
+  window.addEventListener('DOMContentLoaded', () => {
+    // بازیابی تم
+    const savedTheme = localStorage.getItem('limo_theme') || 'lemon';
+    changeTheme(savedTheme);
+
+    // بازیابی نام ذخیره شده
+    const savedName = localStorage.getItem('limo_saved_name');
+    if (savedName) {
+      const nameSelect = document.getElementById('nameSelect');
+      nameSelect.value = savedName;
+      if (savedName === 'custom') {
+        document.getElementById('customNameWrap').style.display = 'block';
+        const savedCustom = localStorage.getItem('limo_custom_name');
+        if (savedCustom) {
+          document.getElementById('customName').value = savedCustom;
+        }
       }
-
-      navigator.clipboard.writeText(output.value)
-        .then(() => showToast("گزارش کپی شد ✅"))
-        .catch(() => {
-          output.select();
-          document.execCommand("copy");
-          showToast("گزارش کپی شد ✅");
-        });
-    }
-
-    function newForm() {
-      const hasData =
-        getName() ||
-        getTime() ||
-        Object.values(prayerStatus).some(value => value) ||
-        document.getElementById("output").value;
-
-      if (hasData && !confirm("فرم پاک شود و یک گزارش جدید بسازی؟")) return;
-
-      document.getElementById("nameSelect").value = "";
-      document.getElementById("timeSelect").value = "";
-      document.getElementById("customName").value = "";
-      document.getElementById("customTime").value = "";
-      document.getElementById("customNameBox").classList.add("hidden");
-      document.getElementById("customTimeBox").classList.add("hidden");
-      document.getElementById("output").value = "";
-
-      Object.keys(prayerStatus).forEach(key => {
-        prayerStatus[key] = "";
-      });
-
-      document.querySelectorAll(".status-btn").forEach(btn => {
-        btn.classList.remove("active");
-      });
-
-      updateProgress();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      showToast("فرم جدید آماده است 🍋");
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-
-      const isDark = document.body.classList.contains("dark");
-      document.getElementById("themeButton").textContent =
-        isDark ? "☀️ تم روشن" : "🌙 تم تیره";
-
-      localStorage.setItem("limoTheme", isDark ? "dark" : "light");
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2600);
-    }
-
-    if (localStorage.getItem("limoTheme") === "dark") {
-      document.body.classList.add("dark");
-      document.getElementById("themeButton").textContent = "☀️ تم روشن";
     }
 
     updateProgress();
-  </script>
+  });
+</script>
 </body>
 </html>
